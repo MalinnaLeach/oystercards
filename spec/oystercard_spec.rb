@@ -15,4 +15,8 @@ describe Oystercard do
     expect(subject.balance).to eq @top_up_value
   end
 
+  it "Should raise Error if top-up will cause balance to exceed limit" do
+    expect {subject.top_up(Oystercard::CAPACITY+1)}.to raise_error "Limit of £#{Oystercard::CAPACITY} exceeded"
+  end
+
 end
