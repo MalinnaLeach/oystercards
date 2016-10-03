@@ -26,4 +26,8 @@ describe Oystercard do
     expect(subject.balance).to eq @top_up_value - @deduct_value
   end
 
+  it "Should return in_journey status" do
+    expect(subject.in_journey?).to eq false 
+  end
+
 end
