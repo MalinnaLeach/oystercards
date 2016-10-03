@@ -20,12 +20,6 @@ describe Oystercard do
     expect {subject.top_up(Oystercard::CAPACITY+1)}.to raise_error "Limit of £#{Oystercard::CAPACITY} exceeded"
   end
 
-  it "should reflect deducted value in balance" do
-    subject.top_up(@top_up_value)
-    subject.deduct(@deduct_value)
-    expect(subject.balance).to eq @top_up_value - @deduct_value
-  end
-
   it "should return in_journey status" do
     subject.in_journey?.should be false
   end
@@ -45,6 +39,12 @@ describe Oystercard do
 
   it "should raise an error if minimum value is not met" do
     expect {subject.touch_in}.to raise_error "insufficient funds to complete journey"
+  end
+
+  it 'should deduct the minimum fare from the balance on touch out' do
+    subject.top_up(@top_up_value)
+    subject.touch_in
+    expect {subject.touch_out}.to change{subject.balance}.by(0 - Oystercard::MINIMUM_FARE)
   end
 
 end
