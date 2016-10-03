@@ -7,8 +7,12 @@ class Oystercard
   end
 
   def top_up(value)
-    raise "Limit of £#{CAPACITY} exceeded" if value + @balance > CAPACITY 
+    raise "Limit of £#{CAPACITY} exceeded" if value + @balance > CAPACITY
     @balance += value
+  end
+
+  def deduct(value)
+    @balance -= value
   end
 
 end
