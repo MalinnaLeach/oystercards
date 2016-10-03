@@ -27,7 +27,18 @@ describe Oystercard do
   end
 
   it "Should return in_journey status" do
-    expect(subject.in_journey?).to eq false 
+    subject.in_journey?.should be false
+  end
+
+  it "Should change in_journey status on touch in" do
+    subject.touch_in
+    subject.in_journey?.should be true
+  end
+
+  it "should change in_journey status on touch out" do
+    subject.touch_in
+    subject.touch_out
+    subject.in_journey?.should be false
   end
 
 end
