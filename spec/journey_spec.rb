@@ -12,8 +12,13 @@ describe Journey do
     expect(journey).to respond_to(:exit_station)
   end
 
-  xit "is able to finish a journey" do
-    expect(journey).to respond_to(:finish)
+  it "finishing a journey sets the exit station" do
+    journey.finish(station)
+    expect(journey.exit_station).to eq station
+  end
+
+  it "finishing a journey returns fare" do
+    expect(journey.finish(station)).to eq Journey::MINIMUM_FARE
   end
 
   it "return the fare for itself" do
@@ -36,11 +41,6 @@ describe Journey do
   it "journey is not complete if entry station is nil" do
     journey.set_entry_station(nil)
     expect(journey.complete?).to be false
-  end
-
-  xit "penalises incomplete journeys" do
-    journey.exit_station(nil)
-    expect(journey.calculate_fare).to eq(fare + penalty)
   end
 
 end

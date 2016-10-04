@@ -20,6 +20,11 @@ class Journey
   end
 
   def calculate_fare
+    complete? ? 1 : 6
   end
 
+  def finish(station)
+    set_exit_station(station)
+    calculate_fare
+  end
 end
