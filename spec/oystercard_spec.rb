@@ -62,4 +62,8 @@ describe Oystercard do
     expect(subject.entry_station).to eq nil
   end
 
+  it "test" do
+    
+  end
+
 end
