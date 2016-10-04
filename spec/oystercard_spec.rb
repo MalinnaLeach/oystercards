@@ -28,10 +28,6 @@ describe Oystercard do
       expect {new_card.top_up(Oystercard::CAPACITY+1)}.to raise_error "Limit of £#{Oystercard::CAPACITY} exceeded"
     end
 
-    it "should return in_journey status" do
-      new_card.in_journey?.should be false
-    end
-
     it "has a an empty journey list by default" do
       expect(new_card.journey_history).to eq []
     end
@@ -44,7 +40,7 @@ describe Oystercard do
 
     it "should change in_journey status on touch in" do
       topped_up_card.touch_in(station)
-      topped_up_card.in_journey?.should be true
+      expect(topped_up_card.current_journey.entry_station).to eq station
     end
   end
 
@@ -59,17 +55,10 @@ describe Oystercard do
       expect {topped_up_card.touch_out(station)}.to change{topped_up_card.balance}.by(0 - Oystercard::MINIMUM_FARE)
     end
 
-    it "should change in_journey status on touch out" do
-      topped_up_card.in_journey?.should be false
-    end
-
     it "stores the journey" do
-      expect(topped_up_card.journey_history[0]).to eq({entry_station: station, exit_station: station2})
+      expect(topped_up_card.journey_history[0]).to be_a Journey
     end
 
-    it 'should reset current journey after touch out' do
-      expect(topped_up_card.current_journey).to eq({})
-    end
   end
 
 end

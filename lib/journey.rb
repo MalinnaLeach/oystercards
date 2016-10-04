@@ -4,4 +4,9 @@ class Journey
   def initialize(entry_station)
     @entry_station = entry_station
   end
+
+  def exit_station(station)
+    @exit_station = station
+  end
+  
 end
